@@ -1,42 +1,88 @@
-# new_frontend
+# LearnSQL Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Новая клиентская часть образовательной платформы LearnSQL.
 
-## Recommended IDE Setup
+LearnSQL используется для практического изучения SQL. Пользователи проходят курсы, выполняют задания и получают результаты автоматической проверки запросов. Платформа применяется в учебном процессе Университета ИТМО.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Основные возможности
 
-## Recommended Browser Setup
+- регистрация, вход и авторизация через внешних провайдеров
+- защищенные маршруты и автоматическое обновление токена
+- просмотр и редактирование профиля пользователя
+- учебная статистика, прогресс по курсам и результаты по темам
+- прохождение курсов и выполнение SQL-заданий
+- SQL-редактор с подсветкой синтаксиса
+- отображение схемы базы данных
+- чаты через REST API и WebSocket
+- светлая, темная и системная темы
+- адаптация интерфейса под мобильные устройства
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Технологии
 
-## Type Support for `.vue` Imports in TS
+- Vue 3, TypeScript и Vite
+- Vue Router и Pinia
+- Axios и WebSocket
+- Tailwind CSS и Sass
+- Chart.js
+- PrismJS
+- JointJS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Архитектура проекта
 
-## Customize configuration
+Приложение представляет собой одностраничный клиент на Vue 3.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```text
+src/
+├── api/          # настройка HTTP-клиента
+├── assets/       # стили и статические ресурсы
+├── components/   # переиспользуемые компоненты
+├── composables/  # общая логика Vue
+├── router/       # маршруты приложения
+├── services/     # работа с API и авторизацией
+├── stores/       # состояние приложения
+├── types/        # TypeScript-типы
+└── views/        # страницы приложения
 ```
 
-### Compile and Hot-Reload for Development
+Данные загружаются через REST API, а сообщения в чатах передаются через WebSocket. Состояние приложения управляется с помощью Pinia. Доступ к персональным разделам контролируется защищенными маршрутами Vue Router.
 
-```sh
+## Требования
+
+- Node.js `20.19+` или `22.12+`
+
+## Запуск проекта
+
+```bash
+git clone --branch new_frontend --single-branch https://github.com/icecarti/learnsql-frontend.git
+cd learnsql-frontend
+npm ci
+```
+
+Создайте файл `.env.local`:
+
+```env
+VITE_BACKEND_API_URL=http://localhost:8000
+```
+
+Дополнительные переменные для внешней авторизации:
+
+```env
+VITE_GOOGLE_CLIENT_ID=
+VITE_YANDEX_CLIENT_ID=
+VITE_YANDEX_REDIRECT_URI=http://localhost:5173/auth/callback/yandex
+VITE_GITHUB_CLIENT_ID=
+```
+
+Запустите проект:
+
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Сборка
 
-```sh
+```bash
+npm run type-check
 npm run build
+npm run preview
 ```
